@@ -23,5 +23,5 @@ COPY --from=build /app/target/*.jar app.jar
 # Expose port (default 8080)
 EXPOSE 8080
 
-# Command to run the app
+# Run the Spring Boot application
 ENTRYPOINT ["java", "-jar", "app.jar"]
