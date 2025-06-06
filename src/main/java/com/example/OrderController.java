@@ -3,7 +3,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class OrderController {
-
     @GetMapping("/order")
     public String home() {
         return "Welcome to the Order Service";
