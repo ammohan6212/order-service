@@ -1,14 +1,12 @@
-# Use Eclipse Temurin official Java 17 image
-FROM eclipse-temurin:17-jdk-alpine
-
-# Set work directory
+# Stage 1: Build the application
+FROM maven:3.9.6-eclipse-temurin-17-alpine AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copy the jar file
-COPY target/hello-world-spring-boot-1.0.0.jar app.jar
-
-# Expose port 8080
+# Stage 2: Run the application
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
