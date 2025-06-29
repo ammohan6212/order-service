@@ -38,8 +38,8 @@ public class OrderController {
         }
         repository.deleteById(id);
     }
-    
-    @DeleteMapping("/order/delete-by-image")
+
+    @DeleteMapping("/delete-by-image")
     public void deleteOrderByImageUrl(@RequestParam String imageUrl) {
         List<Order> orders = repository.findByImageUrl(imageUrl);
         if (orders.isEmpty()) {
