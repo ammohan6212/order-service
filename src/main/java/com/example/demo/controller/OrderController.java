@@ -25,9 +25,15 @@ public class OrderController {
     public List<Order> getOrdersBySellerName(@PathVariable String sellerName) {
         return repository.findBySellerName(sellerName);
     }
-
+    @GetMapping("/order/{id}")
+    public Order getOrderById(@PathVariable Long id) {
+        return repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+    }
+    
     @GetMapping
     public List<Order> getAllOrders() {
         return repository.findAll();
     }
 }
+
