@@ -31,6 +31,14 @@ public class OrderController {
             .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
     }
     
+    @DeleteMapping("/order/{id}")
+    public void deleteOrder(@PathVariable Long id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Order not found with id: " + id);
+        }
+        repository.deleteById(id);
+    }
+    
     @GetMapping
     public List<Order> getAllOrders() {
         return repository.findAll();
