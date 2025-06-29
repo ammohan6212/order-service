@@ -30,7 +30,7 @@ public class OrderController {
         return repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
     }
-    
+
     @DeleteMapping("/order/{id}")
     public void deleteOrder(@PathVariable Long id) {
         if (!repository.existsById(id)) {
@@ -39,6 +39,15 @@ public class OrderController {
         repository.deleteById(id);
     }
     
+    @DeleteMapping("/order/delete-by-image")
+    public void deleteOrderByImageUrl(@RequestParam String imageUrl) {
+        List<Order> orders = repository.findByImageUrl(imageUrl);
+        if (orders.isEmpty()) {
+            throw new RuntimeException("No orders found with imageUrl: " + imageUrl);
+        }
+        repository.deleteByImageUrl(imageUrl);
+    }
+
     @GetMapping
     public List<Order> getAllOrders() {
         return repository.findAll();
