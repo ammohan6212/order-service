@@ -48,9 +48,16 @@ public class OrderController {
         repository.deleteByImageUrl(imageUrl);
     }
 
+    @GetMapping("/health")
+    public String healthCheck() {
+        return "Service is up";
+    }
+    
     @GetMapping
     public List<Order> getAllOrders() {
         return repository.findAll();
     }
+
+
 }
 
