@@ -1,0 +1,3 @@
+order:
+  image: mohan14242ai/order-main:v0.0.0 
+  namespace: main
