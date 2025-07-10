@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order
+  namespace: {{ .Values.order.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order
+  template:
+    metadata:
+      labels:
+        app: order
+    spec:
+      containers:
+        - name: order
+          image: {{ .Values.order.image }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATABASE_URL
+              value: postgresql://postgres:postgres@db1:5432/mydb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order
+  namespace: {{ .Values.order.namespace }}
+spec:
+  selector:
+    app: order
+  ports:
+    - port: 8080
+      targetPort: 8080
